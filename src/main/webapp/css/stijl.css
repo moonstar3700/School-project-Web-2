@@ -106,7 +106,7 @@ input[type="submit"]:hover {
     background-color: rgb(78, 199, 255);
     color: black;
     cursor: pointer;
-    color: e0e1ff;
+    color: #e0e1ff;
 }
 
 table {
@@ -142,5 +142,17 @@ tr:nth-child(even) {
     }
     form {
         padding-left: 2rem;
+    }
+    h1 {
+        font-size: 2rem;
+    }
+    h2 {
+        font-size: 1.5rem;
+    }
+    p {
+        font-size: 1.1rem;
+    }
+    footer {
+        font-size: 1rem;
     }
 }
