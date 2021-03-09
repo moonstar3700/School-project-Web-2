@@ -24,12 +24,12 @@ public class BoekForm extends HttpServlet {
     String score = request.getParameter("score");
 
         if (titel.isEmpty() || autheur.isEmpty() || pagina.isEmpty() || score.isEmpty()) {
-            destination = "BoekToegvoegen.jsp";
+            destination = "BoekToevoegen.jsp";
         }
         else {
             Boek boek = new Boek(titel, autheur, Integer.parseInt(pagina), Integer.parseInt(score));
             databank.addBoek(boek);
-            request.setAttribute("boeken", databank.getBoeken());
+            request.setAttribute("alleboeken", databank.getBoeken());
             destination = "Overzicht.jsp";
         }
 

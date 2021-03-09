@@ -50,7 +50,7 @@
             <input type="text" id="pagina" name="pagina"><br>
 
             <label for="id_select">Score:</label><br>
-            <select id="id_select">
+            <select id="id_select" name="score">
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
