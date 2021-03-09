@@ -27,7 +27,7 @@
                 <a href="index.jsp">Home</a>
             </li>
             <li>
-                <a href="Boek-Toevoegen.jsp">Boek Toevoegen</a>
+                <a href="BoekToevoegen.jsp">Boek Toevoegen</a>
             </li>
             <li class="hier">
                 <a href="BoekForm">Overzicht</a>
@@ -45,8 +45,6 @@
                     <th>Titel boek</th>
                     <th>Autheur</th>
                     <th>Aantal pagina's</th>
-                    <th>Gestart op</th>
-                    <th>Uitgelezen op</th>
                     <th>Score</th>
                     <th>Update</th>
                     <th>Verwijderen</th>
@@ -61,8 +59,6 @@
                     <td><%=b.getTitel()%></td>
                     <td><%=b.getAutheur()%></td>
                     <td><%=b.getPagina()%></td>
-                    <td><%=b.getVan()%></td>
-                    <td><%=b.getTot()%></td>
                     <td><%=b.getScore()%></td>
                     <td>Update</td>
                     <td>Verwijderen</td>

@@ -16,6 +16,25 @@ public class BoekForm extends HttpServlet {
 
     private BoekenDB databank = new BoekenDB();
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    String destination = "Overzicht.jsp";
+
+    String titel = request.getParameter("titel");
+    String autheur = request.getParameter("autheur");
+    String pagina = request.getParameter("pagina");
+    String score = request.getParameter("score");
+
+        if (titel.isEmpty() || autheur.isEmpty() || pagina.isEmpty() || score.isEmpty()) {
+            destination = "BoekToegvoegen.jsp";
+        }
+        else {
+            Boek boek = new Boek(titel, autheur, Integer.parseInt(pagina), Integer.parseInt(score));
+            databank.addBoek(boek);
+            request.setAttribute("boeken", databank.getBoeken());
+            destination = "Overzicht.jsp";
+        }
+
+        request.getRequestDispatcher(destination).forward(request, response);
+
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

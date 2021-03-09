@@ -19,7 +19,7 @@
                 <a href="index.jsp">Home</a>
             </li>
             <li>
-                <a href="Boek-Toevoegen.jsp">Boek Toevoegen</a>
+                <a href="BoekToevoegen.jsp">Boek Toevoegen</a>
             </li>
             <li>
                 <a href="BoekForm">Overzicht</a>

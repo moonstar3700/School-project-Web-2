@@ -6,14 +6,11 @@ public class Boek {
     String titel;
     String autheur;
     int pagina, score;
-    LocalDate van, tot;
 
-    public Boek(String titel, String autheur, int pagina, LocalDate van, LocalDate tot, int score){
+    public Boek(String titel, String autheur, int pagina, int score){
     setTitel(titel);
     setAutheur(autheur);
     setPagina(pagina);
-    setVan(van);
-    setTot(tot);
     setScore(score);
     }
     public void setTitel(String titel) {
@@ -41,16 +38,6 @@ public class Boek {
         this.score = score;
     }
 
-    public void setVan(LocalDate van) {
-        if (van == null){
-            this.van = LocalDate.now();
-        }
-        this.van = van;
-    }
-
-    public void setTot(LocalDate tot) {
-        this.tot = tot;
-    }
     public String getTitel() {
         return titel;
     }
@@ -67,13 +54,6 @@ public class Boek {
         return score;
     }
 
-    public LocalDate getVan() {
-        return van;
-    }
-
-    public LocalDate getTot() {
-        return tot;
-    }
 
 
 }

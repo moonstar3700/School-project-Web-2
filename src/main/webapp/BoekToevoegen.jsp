@@ -26,7 +26,7 @@
                 <a href="index.jsp">Home</a>
             </li>
             <li class="hier">
-                <a href="Boek-Toevoegen.jsp">Boek Toevoegen</a>
+                <a href="BoekToevoegen.jsp">Boek Toevoegen</a>
             </li>
             <li>
                 <a href="BoekForm">Overzicht</a>
@@ -42,14 +42,13 @@
         <form action="BoekForm" method="POST">
             <label for="titel">Titel boek:</label><br>
             <input type="text" id="titel" name="titel"><br>
+
             <label for="autheur">Autheur:</label><br>
             <input type="text" id="autheur" name="autheur"><br>
-            <label for="pagina's">Aantal pagina's:</label><br>
-            <input type="text" id="pagina's" name="pagina's"><br>
-            <label for="gestart">Boek gestart op:</label><br>
-            <input type="text" id="gestart" name="gestart"><br>
-            <label for="uitgelezen">Uitgelezen op:</label><br>
-            <input type="text" id="uitgelezen" name="uitgelezen"><br>
+
+            <label for="pagina">Aantal pagina's:</label><br>
+            <input type="text" id="pagina" name="pagina"><br>
+
             <label for="id_select">Score:</label><br>
             <select id="id_select">
                 <option value="1">1</option>
