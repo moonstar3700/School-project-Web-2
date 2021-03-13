@@ -1,8 +1,6 @@
 package domain.DB;
 
 import domain.model.Boek;
-
-import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class BoekenDB {
@@ -23,4 +21,41 @@ public class BoekenDB {
 
     public ArrayList<Boek> getBoeken() {return boeken; }
     public void addBoek(Boek boek){boeken.add(boek);}
+
+    public Boek diksteBoek(){
+        if (boeken.size() == 0)
+            return null;
+        Boek dikste = boeken.get(0);
+        for (Boek boek: boeken){
+            if (boek.getPagina() > dikste.getPagina())
+                dikste = boek;
+        }
+        return dikste;
+    }
+
+    public Boek dunsteBoek(){
+        if (boeken.size() == 0)
+            return null;
+        Boek dunste = boeken.get(0);
+        for (Boek boek: boeken){
+            if (boek.getPagina() < dunste.getPagina())
+                dunste = boek;
+        }
+        return dunste;
+    }
+    
+        public void verwijder(String titel){
+        boeken.remove(this.vind(titel));
+    }
+
+
+    public Boek vind(String titel) {
+        for (Boek boek : boeken) {
+            if (boek.heeftTitel(titel)) {
+                return boek;
+            }
+        }
+        return null;
+    }
+
 }

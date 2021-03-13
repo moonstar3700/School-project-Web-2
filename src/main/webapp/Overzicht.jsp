@@ -24,13 +24,13 @@
     <nav>
         <ul>
             <li>
-                <a href="index.jsp">Home</a>
+                <a href="BoekForm">Home</a>
             </li>
             <li>
                 <a href="BoekToevoegen.jsp">Boek Toevoegen</a>
             </li>
             <li class="hier">
-                <a href="BoekForm">Overzicht</a>
+                <a href="BoekForm?command=Overzicht">Overzicht</a>
             </li>
         </ul>
     </nav>
@@ -61,7 +61,7 @@
                     <td><%=b.getPagina()%></td>
                     <td><%=b.getScore()%></td>
                     <td>Update</td>
-                    <td>Verwijderen</td>
+                    <td><a href="BoekForm?command=deleteConfirmation&titel=<%=b.getTitel()%>&autheur=<%=b.getAutheur()%>">Verwijder</a></td>
 
                 </tr>
                 <%}%>

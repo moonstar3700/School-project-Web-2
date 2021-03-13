@@ -23,13 +23,13 @@
     <nav>
         <ul>
             <li>
-                <a href="index.jsp">Home</a>
+                <a href="BoekForm">Home</a>
             </li>
             <li class="hier">
                 <a href="BoekToevoegen.jsp">Boek Toevoegen</a>
             </li>
             <li>
-                <a href="BoekForm">Overzicht</a>
+                <a href="BoekForm?command=Overzicht">Overzicht</a>
             </li>
         </ul>
     </nav>
@@ -39,7 +39,8 @@
         <h1>
             Voeg een boek toe
         </h1>
-        <form action="BoekForm" method="POST">
+        <p>${error}</p><br>
+        <form action="BoekForm?command=voegToe" method="POST">
             <label for="titel">Titel boek:</label><br>
             <input type="text" id="titel" name="titel"><br>
 

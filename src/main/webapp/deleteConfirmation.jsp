@@ -1,4 +1,3 @@
-<%@ page import="domain.model.Boek" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="nl">
@@ -11,7 +10,6 @@
     <link rel="stylesheet" href="css/stijl.css">
 
 </head>
-
 <body>
 <header>
     <nav>
@@ -30,18 +28,21 @@
 </header>
 <main>
     <section>
-        <h1><span>読書クラブ</span><br>Reading club</h1>
-        <p>Op deze site voeg ik alle boeken toe die ik gelezen heb, en die ik aan het lezen ben om bij te houden hoeveel boeken ik doorheen het jaar lees. </p>
-        <h2>Enkele weetjes</h2>
-        <p>Het dunste boek in de lijst is: <%=((Boek) request.getAttribute("dunsteBoek")).getTitel()%>
-            <br> Het dikste boek in de lijst is: <%=((Boek) request.getAttribute("diksteBoek")).getTitel()%>
+        <h1>Bevestiging</h1>
+        <h2>Weet u zeker dat u het volgende element wilt verwijderen?</h2>
+        <p><%=request.getParameter("titel")%> van <%=request.getParameter("autheur")%></p>
 
-        </p>
+        <form action="BoekForm?command=delete&titel=<%=request.getParameter("titel")%>" method="POST">
+            <input type="submit" value="Verwijder">
+        </form>
+        <form class="cancel" action="BoekForm?command=Overzicht" method="POST">
+            <input type="submit" value="Ga terug">
+        </form>
     </section>
 </main>
+
 <footer>
     &copy; Patryk Piekarz, webontwikkeling 2, 2021
 </footer>
 </body>
-
 </html>

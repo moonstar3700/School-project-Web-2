@@ -54,6 +54,7 @@ public class Boek {
         return score;
     }
 
-
-
+    public boolean heeftTitel(String titel){
+        return titel.equals(this.titel);
+    }
 }
