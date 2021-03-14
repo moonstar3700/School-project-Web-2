@@ -26,10 +26,13 @@
                 <a href="BoekForm">Home</a>
             </li>
             <li class="hier">
-                <a href="BoekToevoegen.jsp">Boek Toevoegen</a>
+                <a href="BoekForm?command=BoekToevoegen">Boek Toevoegen</a>
             </li>
             <li>
                 <a href="BoekForm?command=Overzicht">Overzicht</a>
+            </li>
+            <li>
+                <a href="BoekForm?command=searchPage">Search</a>
             </li>
         </ul>
     </nav>

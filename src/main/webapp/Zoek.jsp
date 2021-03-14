@@ -1,11 +1,10 @@
 <%--
   Created by IntelliJ IDEA.
   User: smigi
-  Date: 09/03/2021
-  Time: 21:40
+  Date: 07/03/2021
+  Time: 13:35
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="nl">
 
@@ -17,6 +16,7 @@
     <link rel="stylesheet" href="css/stijl.css">
 
 </head>
+
 <body>
 <header>
     <nav>
@@ -36,13 +36,17 @@
         </ul>
     </nav>
 </header>
-<main>
-    <section>
-        <h1>Het boek dat u zocht staat niet in de lijst</h1>
-    </section>
-</main>
+<body>
+<form action="BoekForm?command=search" method="GET">
+    <label for="titel">Titel:</label><br>
+    <input type="text" id="titel" name="titel"><br>
+    <input type="submit" value="Zoek">
+    <input type="hidden" name="command" value="search">
+</form>
 <footer>
     &copy; Patryk Piekarz, webontwikkeling 2, 2021
 </footer>
+</body>
+
 </body>
 </html>

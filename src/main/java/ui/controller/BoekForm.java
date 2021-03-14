@@ -16,29 +16,12 @@ public class BoekForm extends HttpServlet {
 
     private BoekenDB databank = new BoekenDB();
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        /*String destination = "Overzicht.jsp";
-
-        destination = voegToe(request);
-        request.getRequestDispatcher(destination).forward(request, response);*/
         processRequest(request, response);
     }
 
 
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        /*String destination;
-        String command = request.getParameter("command");
-
-        if (command == null)
-            command = "homePage";
-        if (command.equals("Overzicht")){
-            destination = showOverzicht(request);
-        }else{
-            destination = goHome(request);
-        }
-
-        request.setAttribute("alleboeken", databank.getBoeken());
-        request.getRequestDispatcher(destination).forward(request, response);*/
         processRequest(request, response);
     }
 
@@ -53,6 +36,9 @@ public class BoekForm extends HttpServlet {
                 case "Overzicht":
                     destination = showOverzicht(request);
                     break;
+                case "BoekToevoegen":
+                    destination = "BoekToevoegen.jsp";
+                    break;
                 case "voegToe":
                     destination = voegToe(request);
                     break;
@@ -62,13 +48,18 @@ public class BoekForm extends HttpServlet {
                 case "delete":
                     destination = delete(request, response);
                     break;
+                case "searchPage":
+                    destination = "Zoek.jsp";
+                    break;
                 case "search":
                     destination = search(request);
+                    break;
                 default:
                     destination = goHome(request);
             }
             request.getRequestDispatcher(destination).forward(request, response);
         }
+
 
     private String goHome(HttpServletRequest request) {
         String destination;
@@ -80,8 +71,6 @@ public class BoekForm extends HttpServlet {
 
     private String showOverzicht(HttpServletRequest request) {
         String destination;
-        /*request.setAttribute("diksteBoek", databank.diksteBoek());
-        request.setAttribute("dunsteBoek", databank.dunsteBoek());*/
         request.setAttribute("alleboeken", databank.getBoeken());
 
         destination = "Overzicht.jsp";
@@ -128,7 +117,14 @@ public class BoekForm extends HttpServlet {
                 destination = "nietgevonden.jsp";
             }else{
                 destination = "gevonden.jsp";
-                request.setAttribute("titel",boeken);
+                String resultaat1 = "Titel: " + boeken.getTitel();
+                String resultaat2 = "Autheur: " + boeken.getAutheur();
+                        String resultaat3 = "Aantal pagina's: " + boeken.getPagina();
+                        String resultaat4 = "score: " + boeken.getScore();
+                        request.setAttribute("resultaat1",resultaat1);
+                request.setAttribute("resultaat2",resultaat2);
+                request.setAttribute("resultaat3",resultaat3);
+                request.setAttribute("resultaat4",resultaat4);
             }
         }
         request.getRequestDispatcher(destination);

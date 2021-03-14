@@ -20,10 +20,13 @@
                 <a href="BoekForm">Home</a>
             </li>
             <li>
-                <a href="BoekToevoegen.jsp">Boek Toevoegen</a>
+                <a href="BoekForm?command=BoekToevoegen">Boek Toevoegen</a>
             </li>
             <li>
                 <a href="BoekForm?command=Overzicht">Overzicht</a>
+            </li>
+            <li>
+                <a href="BoekForm?command=searchPage">Search</a>
             </li>
         </ul>
     </nav>
@@ -43,5 +46,6 @@
     &copy; Patryk Piekarz, webontwikkeling 2, 2021
 </footer>
 </body>
+
 
 </html>
