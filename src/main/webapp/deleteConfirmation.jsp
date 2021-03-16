@@ -38,9 +38,7 @@
         <form action="BoekForm?command=delete&titel=<%=request.getParameter("titel")%>" method="POST">
             <input type="submit" value="Verwijder">
         </form>
-        <form class="cancel" action="BoekForm?command=Overzicht" method="POST">
-            <input type="submit" value="Ga terug">
-        </form>
+        <p><a href="BoekForm?command=Overzicht">Cancel</a> indien je <%=request.getParameter("titel")%> niet wilt verwijderen?</p>
     </section>
 </main>
 

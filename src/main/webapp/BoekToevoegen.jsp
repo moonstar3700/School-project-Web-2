@@ -43,7 +43,7 @@
             Voeg een boek toe
         </h1>
         <p>${error}</p><br>
-        <form action="BoekForm?command=voegToe" method="POST">
+        <form action="BoekForm?command=voegToe" method="POST" novalidate>
             <label for="titel">Titel boek:</label><br>
             <input type="text" id="titel" name="titel"><br>
 
