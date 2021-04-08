@@ -13,7 +13,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Boek toevoegen</title>
+    <title>Reading club - Boek toevoegen</title>
     <link rel="stylesheet" href="css/stijl.css">
 
 </head>
@@ -42,7 +42,7 @@
         <h1>
             Voeg een boek toe
         </h1>
-        <p>${error}</p><br>
+        <p id="err">${error}</p><br>
         <form action="BoekForm?command=voegToe" method="POST" novalidate>
             <label for="titel">Titel boek:</label><br>
             <input type="text" id="titel" name="titel"><br>
@@ -66,7 +66,7 @@
                 <option value="9">9</option>
                 <option value="10">10</option>
             </select><br>
-            <input type="submit" value="Item toevoegen">
+            <input type="submit" class="submit" value="Item toevoegen">
         </form>
     </section>
 </main>

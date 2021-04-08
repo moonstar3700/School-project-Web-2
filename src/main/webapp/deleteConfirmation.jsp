@@ -7,7 +7,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reading club</title>
+    <title>Reading club - Bevestiging</title>
     <link rel="stylesheet" href="css/stijl.css">
 
 </head>
@@ -37,7 +37,7 @@
         <p>${param.titel} van ${param.autheur}</p>
 
         <form action="BoekForm?command=delete&titel=${param.titel}" method="POST">
-            <input type="submit" value="Verwijder">
+            <input type="submit" class="submit" value="Verwijder">
         </form>
         <p><a href="BoekForm?command=Overzicht">Cancel</a> indien je ${param.titel} niet wilt verwijderen?</p>
     </section>

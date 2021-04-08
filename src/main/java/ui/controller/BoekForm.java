@@ -88,6 +88,21 @@ public class BoekForm extends HttpServlet {
             String error = "Vul alle velden in.";
             request.setAttribute("error", error);
         }
+        if (titel.trim().isEmpty()){
+            destination = "BoekToevoegen.jsp";
+            String errorT = "Titel mag niet leeg zijn.";
+            request.setAttribute("error1", errorT);
+        }
+        if (autheur.trim().isEmpty()){
+            destination = "BoekToevoegen.jsp";
+            String errorA = "Autheur mag niet leeg zijn.";
+            request.setAttribute("error2", errorA);
+        }
+        if (pagina.isEmpty()){
+            destination = "BoekToevoegen.jsp";
+            String errorP = "Aantal pagina's mag niet leeg zijn.";
+            request.setAttribute("error3", errorP);
+        }
         else {
             Boek boek = new Boek(titel, autheur, Integer.parseInt(pagina), Integer.parseInt(score));
             databank.addBoek(boek);
