@@ -7,6 +7,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="nl">
 
@@ -54,20 +55,18 @@
                 </tr>
                 </thead>
                 <tbody>
-                <%   ArrayList<Boek> boeken = (ArrayList<Boek>) request.getAttribute("alleboeken"); //
 
-                    for(Boek b: boeken){
-                %>
+                <c:forEach var="boek" items="${alleboeken}">
                 <tr>
-                    <td><%=b.getTitel()%></td>
-                    <td><%=b.getAutheur()%></td>
-                    <td><%=b.getPagina()%></td>
-                    <td><%=b.getScore()%></td>
+                    <td>${boek.titel}</td>
+                    <td>${boek.autheur}</td>
+                    <td>${boek.pagina}</td>
+                    <td>${boek.score}</td>
                     <td>Update</td>
-                    <td><a href="BoekForm?command=deleteConfirmation&titel=<%=b.getTitel()%>&autheur=<%=b.getAutheur()%>">Verwijder</a></td>
+                    <td><a href="BoekForm?command=deleteConfirmation&titel=${boek.titel}&autheur=${boek.autheur}">Verwijder</a></td>
 
                 </tr>
-                <%}%>
+                </c:forEach>
                 </tbody>
             </table>
         </div>

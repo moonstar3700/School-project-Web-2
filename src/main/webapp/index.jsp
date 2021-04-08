@@ -36,8 +36,8 @@
         <h1><span>読書クラブ</span><br>Reading club</h1>
         <p>Op deze site voeg ik alle boeken toe die ik gelezen heb, en die ik aan het lezen ben om bij te houden hoeveel boeken ik doorheen het jaar lees. </p>
         <h2>Enkele weetjes</h2>
-        <p>Het dunste boek in de lijst is: <%=((Boek) request.getAttribute("dunsteBoek")).getTitel()%>
-            <br> Het dikste boek in de lijst is: <%=((Boek) request.getAttribute("diksteBoek")).getTitel()%>
+        <p>Het dunste boek in de lijst is: ${dunsteBoek.titel}
+            <br> Het dikste boek in de lijst is: ${diksteBoek.titel}
 
         </p>
     </section>

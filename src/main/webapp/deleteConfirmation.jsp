@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="nl">
 
@@ -33,12 +34,12 @@
     <section>
         <h1>Bevestiging</h1>
         <h2>Weet u zeker dat u het volgende element wilt verwijderen?</h2>
-        <p><%=request.getParameter("titel")%> van <%=request.getParameter("autheur")%></p>
+        <p>${param.titel} van ${param.autheur}</p>
 
-        <form action="BoekForm?command=delete&titel=<%=request.getParameter("titel")%>" method="POST">
+        <form action="BoekForm?command=delete&titel=${param.titel}" method="POST">
             <input type="submit" value="Verwijder">
         </form>
-        <p><a href="BoekForm?command=Overzicht">Cancel</a> indien je <%=request.getParameter("titel")%> niet wilt verwijderen?</p>
+        <p><a href="BoekForm?command=Overzicht">Cancel</a> indien je ${param.titel} niet wilt verwijderen?</p>
     </section>
 </main>
 
