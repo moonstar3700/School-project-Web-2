@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: smigi
@@ -38,20 +39,31 @@
     </nav>
 </header>
 <main>
+
     <section>
         <h1>
             Voeg een boek toe
         </h1>
-        <p id="err">${error}</p><br>
+        <c:if test="${not empty errors}">
+            <div class="alerts">
+                <ul>
+                    <c:forEach items="${errors}" var="error">
+                        <li>
+                            ${error}
+                        </li>
+                    </c:forEach>
+                </ul>
+            </div>
+        </c:if>
         <form action="BoekForm?command=voegToe" method="POST" novalidate>
             <label for="titel">Titel boek:</label><br>
-            <input type="text" id="titel" name="titel"><br>
+            <input type="text" id="titel" name="titel" value="${titelpreviuousValue}"  required><br>
 
             <label for="autheur">Autheur:</label><br>
-            <input type="text" id="autheur" name="autheur"><br>
+            <input type="text" id="autheur" name="autheur" value="${autheurpreviuousValue}" required><br>
 
             <label for="pagina">Aantal pagina's:</label><br>
-            <input type="text" id="pagina" name="pagina"><br>
+            <input type="text" id="pagina" name="pagina" value="${paginapreviuousValue}" required><br>
 
             <label for="id_select">Score:</label><br>
             <select id="id_select" name="score">

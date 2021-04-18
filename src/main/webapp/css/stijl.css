@@ -125,6 +125,16 @@ tr:nth-child(even) {
     background-color: #c3c4e6;
 }
 
+.alerts{
+    background-color: #ff6e99;
+    border-color: crimson;
+    border-radius: 5px;
+    padding-left: 2rem;
+}
+.alerts ul{
+    list-style-type: square;
+}
+
 @media only screen and (min-width: 1000px) {
     header ul {
         flex-direction: row;
@@ -140,6 +150,7 @@ tr:nth-child(even) {
         border-color: rgb(37, 37, 59);
         border-radius: 2px;
     }
+
     .cancel{
         margin-top: 0rem;
     }

@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
 
 @WebServlet("/BoekForm")
 public class BoekForm extends HttpServlet {
@@ -34,13 +35,13 @@ public class BoekForm extends HttpServlet {
 
             switch (command){
                 case "Overzicht":
-                    destination = showOverzicht(request);
+                    destination = showOverzicht(request, response);
                     break;
                 case "BoekToevoegen":
                     destination = "BoekToevoegen.jsp";
                     break;
                 case "voegToe":
-                    destination = voegToe(request);
+                    destination = voegToe(request, response);
                     break;
                 case "deleteConfirmation":
                     destination = "deleteConfirmation.jsp";
@@ -69,15 +70,37 @@ public class BoekForm extends HttpServlet {
         return destination;
     }
 
-    private String showOverzicht(HttpServletRequest request) {
+    private String showOverzicht(HttpServletRequest request, HttpServletResponse response) {
         String destination;
         request.setAttribute("alleboeken", databank.getBoeken());
 
         destination = "Overzicht.jsp";
         return destination;
     }
-    private String voegToe(HttpServletRequest request) {
-        String destination;
+    private String voegToe(HttpServletRequest request, HttpServletResponse response) {
+        ArrayList<String> errors = new ArrayList<>();
+        Boek boek = new Boek();
+        setTitel(boek, request, errors);
+        setAutheur(boek, request, errors);
+        setPagina(boek, request, errors);
+        setScore(boek, request);
+
+        if (errors.size() == 0){
+            try{
+                databank.addBoek(boek);
+                return showOverzicht(request, response);
+            }
+            catch (IllegalArgumentException exc){
+                request.setAttribute("error", exc.getMessage());
+                return "BoekToevoegen.jsp";
+            }
+        }
+        else {
+            request.setAttribute("errors", errors);
+            return "BoekToevoegen.jsp";
+        }
+
+        /*String destination;
         String titel = request.getParameter("titel");
         String autheur = request.getParameter("autheur");
         String pagina = request.getParameter("pagina");
@@ -109,13 +132,57 @@ public class BoekForm extends HttpServlet {
             request.setAttribute("alleboeken", databank.getBoeken());
             destination = "Overzicht.jsp";
         }
-        return destination;
+        return destination;*/
+    }
+
+    private void setTitel(Boek boek, HttpServletRequest request, ArrayList<String> errors){
+        String titel = request.getParameter("titel");
+        try {
+            boek.setTitel(titel);
+            //request.setAttribute("titelClass", "has-succes");
+            request.setAttribute("titelpreviuousValue", titel); // returned de ingevulde waarde bij fouten
+        }
+        catch (IllegalArgumentException e ){
+            errors.add(e.getMessage());
+        }
+    }
+
+    private void setAutheur(Boek boek, HttpServletRequest request, ArrayList<String> errors){
+        String autheur = request.getParameter("autheur");
+        try {
+            boek.setAutheur(autheur);
+            request.setAttribute("autheurpreviuousValue", autheur);
+        }
+        catch (IllegalArgumentException exc){
+            errors.add(exc.getMessage());
+        }
+    }
+
+    private void setPagina(Boek boek, HttpServletRequest request, ArrayList<String> errors) {
+        int pagina;
+        if (request.getParameter("pagina") == null || request.getParameter("pagina").trim().length() == 0) {
+            pagina = -1;
+        } else {
+            pagina = Integer.parseInt(request.getParameter("pagina"));
+        }
+        try {
+            boek.setPagina(pagina);
+            request.setAttribute("paginapreviuousValue", pagina);
+        } catch (IllegalArgumentException exc) {
+            errors.add(exc.getMessage());
+        }
+    }
+
+    private void setScore(Boek boek, HttpServletRequest request){
+        int score = Integer.parseInt(request.getParameter("score"));
+        boek.setScore(score);
+        request.setAttribute("scorepreviuousValue", score);
     }
 
       private String delete(HttpServletRequest request, HttpServletResponse response){
         String titel = request.getParameter("titel");
         databank.verwijder(titel);
-        return showOverzicht(request);
+        return showOverzicht(request, response);
     }
 
 

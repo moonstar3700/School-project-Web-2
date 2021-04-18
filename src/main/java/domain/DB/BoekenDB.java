@@ -17,7 +17,15 @@ public class BoekenDB {
     }
 
     public ArrayList<Boek> getBoeken() {return boeken; }
-    public void addBoek(Boek boek){boeken.add(boek);}
+
+    public void addBoek(Boek boek){
+        if (boek == null){
+            throw new IllegalArgumentException("geef een bestaand item");
+        }
+        if (vind(boek.getTitel()) != null)
+            throw new IllegalArgumentException("Je mag een boek maar 1 keer toevoegen");
+        boeken.add(boek);
+    }
 
     public Boek diksteBoek(){
         if (boeken.size() == 0)

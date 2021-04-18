@@ -13,26 +13,32 @@ public class Boek {
     setPagina(pagina);
     setScore(score);
     }
+
+    public Boek(){
+
+    }
+
     public void setTitel(String titel) {
         if (titel == null || titel.trim().isEmpty()){
-            throw new IllegalArgumentException("titel mag niet leeg zijn");
+            throw new IllegalArgumentException("Titel mag niet leeg zijn");
         }
         this.titel = titel;
     }
 
     public void setAutheur(String autheur) {
         if (autheur == null || autheur.trim().isEmpty()){
-            throw new IllegalArgumentException("autheur mag niet leeg zijn");
+            throw new IllegalArgumentException("Autheur mag niet leeg zijn");
         }
         this.autheur = autheur;
     }
 
     public void setPagina(int pagina) {
         if (pagina <= 0){
-            throw new IllegalArgumentException("aantal pagina's moet boven 0 zijn");
+            throw new IllegalArgumentException("Aantal pagina's moet boven 0 zijn");
         }
         this.pagina = pagina;
     }
+
 
     public void setScore(int score) {
         this.score = score;
