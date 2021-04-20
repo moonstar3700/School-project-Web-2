@@ -63,4 +63,14 @@ public class BoekenDB {
         return null;
     }
 
+    public int GemiddeldePagina(){
+        int result = 0;
+        int aantal = 0;
+        for(Boek b: boeken){
+           result += b.getPagina();
+           aantal++;
+        }
+        return result/aantal;
+    }
+
 }

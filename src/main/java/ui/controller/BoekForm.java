@@ -66,6 +66,7 @@ public class BoekForm extends HttpServlet {
         String destination;
         request.setAttribute("diksteBoek", databank.diksteBoek());
         request.setAttribute("dunsteBoek", databank.dunsteBoek());
+        request.setAttribute("gemiddeldePagina", databank.GemiddeldePagina());
         destination = "index.jsp";
         return destination;
     }
@@ -85,6 +86,11 @@ public class BoekForm extends HttpServlet {
         setPagina(boek, request, errors);
         setScore(boek, request);
 
+        for(Boek b: databank.getBoeken()){
+            if (b.getTitel().equals(boek.getTitel()) && b.getAutheur().equals(boek.getAutheur())){
+                errors.add("Dit boek bestaat al in de database");
+            }
+        }
         if (errors.size() == 0){
             try{
                 databank.addBoek(boek);
@@ -160,17 +166,18 @@ public class BoekForm extends HttpServlet {
 
     private void setPagina(Boek boek, HttpServletRequest request, ArrayList<String> errors) {
         int pagina;
-        if (request.getParameter("pagina") == null || request.getParameter("pagina").trim().length() == 0) {
-            pagina = -1;
-        } else {
-            pagina = Integer.parseInt(request.getParameter("pagina"));
-        }
-        try {
-            boek.setPagina(pagina);
-            request.setAttribute("paginapreviuousValue", pagina);
-        } catch (IllegalArgumentException exc) {
-            errors.add(exc.getMessage());
-        }
+            try {
+                pagina = Integer.parseInt(request.getParameter("pagina"));
+                boek.setPagina(pagina);
+                request.setAttribute("paginapreviuousValue", pagina);
+            }
+
+            catch (NumberFormatException exc){
+                errors.add("Voer een getal voor pagina's in");
+            }
+            catch (IllegalArgumentException exc) {
+                errors.add(exc.getMessage());
+            }
     }
 
     private void setScore(Boek boek, HttpServletRequest request){

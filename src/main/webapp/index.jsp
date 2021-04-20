@@ -38,7 +38,7 @@
         <h2>Enkele weetjes</h2>
         <p>Het dunste boek in de lijst is: ${dunsteBoek.titel}
             <br> Het dikste boek in de lijst is: ${diksteBoek.titel}
-
+            <br> Gemiddelde aantal pagina's is: ${gemiddeldePagina}
         </p>
     </section>
 </main>
