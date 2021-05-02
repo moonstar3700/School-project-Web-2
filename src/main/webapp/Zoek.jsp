@@ -37,7 +37,6 @@
         </ul>
     </nav>
 </header>
-<body>
     <c:if test="${titelCookie != null}">
         <div>
             <p class="cook">
@@ -54,7 +53,5 @@
 <footer>
     &copy; Patryk Piekarz, webontwikkeling 2, 2021
 </footer>
-</body>
-
 </body>
 </html>
