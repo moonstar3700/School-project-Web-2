@@ -71,6 +71,11 @@ public class BoekForm extends HttpServlet {
         else return "Zoek.jsp";
     }
 
+    /** Implementatie cookie
+     *  Het laatst opgezochte zoekterm in de zoek functie van de site wordt in de cookies opgeslagen.
+     *  Indien men en leeg veld of enkel spaties indient zal niets in de cookies worden opgeslagen.
+     */
+
     private Cookie getCookie(HttpServletRequest request, String key) {
         Cookie[] cookies = request.getCookies(); // haalt alle cookies op
         if (cookies == null)
