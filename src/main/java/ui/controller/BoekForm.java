@@ -53,6 +53,12 @@ public class BoekForm extends HttpServlet {
                 case "searchPage":
                     destination = zoek(request, response);
                     break;
+                case "updatePage":
+                    destination = updatePage(request, response);
+                    break;
+                case "update":
+                    destination = update(request, response);
+                    break;
                 case "search":
                     destination = search(request, response);
                     break;
@@ -61,6 +67,44 @@ public class BoekForm extends HttpServlet {
             }
             request.getRequestDispatcher(destination).forward(request, response);
         }
+
+    private String update(HttpServletRequest request, HttpServletResponse response) {
+        String titel = request.getParameter("titel");
+        Boek b = databank.vind(titel);
+
+        ArrayList<String> errors = new ArrayList<>();
+        setAutheur(b, request, errors);
+        setPagina(b, request, errors);
+        setScore(b, request);
+
+        if (errors.size() == 0){
+            try{
+                return showOverzicht(request, response);
+            }
+            catch (IllegalArgumentException exc){
+                request.setAttribute("error", exc.getMessage());
+                request.setAttribute("titelpreviuousValue", titel);
+                return "update.jsp";
+            }
+        }
+        else {
+            request.setAttribute("errors", errors);
+            request.setAttribute("titelpreviuousValue", titel);
+            return "update.jsp";
+        }
+    }
+
+    private String updatePage(HttpServletRequest request, HttpServletResponse response) {
+        String titel = request.getParameter("titel");
+        String autheur = request.getParameter("autheur");
+        String pagina = request.getParameter("pagina");
+
+        request.setAttribute("titelpreviuousValue", titel);
+        request.setAttribute("autheurpreviuousValue", autheur);
+        request.setAttribute("paginapreviuousValue", pagina);
+
+        return "update.jsp";
+    }
 
     private String zoek(HttpServletRequest request, HttpServletResponse response) {
 
@@ -132,39 +176,6 @@ public class BoekForm extends HttpServlet {
             return "BoekToevoegen.jsp";
         }
 
-        /*String destination;
-        String titel = request.getParameter("titel");
-        String autheur = request.getParameter("autheur");
-        String pagina = request.getParameter("pagina");
-        String score = request.getParameter("score");
-
-        if (titel.isEmpty() || autheur.isEmpty() || pagina.isEmpty() || score.isEmpty()) {
-            destination = "BoekToevoegen.jsp";
-            String error = "Vul alle velden in.";
-            request.setAttribute("error", error);
-        }
-        if (titel.trim().isEmpty()){
-            destination = "BoekToevoegen.jsp";
-            String errorT = "Titel mag niet leeg zijn.";
-            request.setAttribute("error1", errorT);
-        }
-        if (autheur.trim().isEmpty()){
-            destination = "BoekToevoegen.jsp";
-            String errorA = "Autheur mag niet leeg zijn.";
-            request.setAttribute("error2", errorA);
-        }
-        if (pagina.isEmpty()){
-            destination = "BoekToevoegen.jsp";
-            String errorP = "Aantal pagina's mag niet leeg zijn.";
-            request.setAttribute("error3", errorP);
-        }
-        else {
-            Boek boek = new Boek(titel, autheur, Integer.parseInt(pagina), Integer.parseInt(score));
-            databank.addBoek(boek);
-            request.setAttribute("alleboeken", databank.getBoeken());
-            destination = "Overzicht.jsp";
-        }
-        return destination;*/
     }
 
     private void setTitel(Boek boek, HttpServletRequest request, ArrayList<String> errors){
@@ -243,7 +254,7 @@ public class BoekForm extends HttpServlet {
             }
         }
         if(!titel.trim().isEmpty()) {
-            Cookie cookie = new Cookie("titels", titel); // maakt nieuwe
+            Cookie cookie = new Cookie("titels", titel); // maakt nieuwe cookie aan
             response.addCookie(cookie);
         }
         request.getRequestDispatcher(destination);

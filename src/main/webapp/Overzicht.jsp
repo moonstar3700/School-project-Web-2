@@ -62,7 +62,7 @@
                     <td>${boek.autheur}</td>
                     <td>${boek.pagina}</td>
                     <td>${boek.score}</td>
-                    <td>Update</td>
+                    <td><a href="BoekForm?command=updatePage&titel=${boek.titel}&autheur=${boek.autheur}&pagina=${boek.pagina}">Update</a></td>
                     <td><a href="BoekForm?command=deleteConfirmation&titel=${boek.titel}&autheur=${boek.autheur}">Verwijder</a></td>
 
                 </tr>

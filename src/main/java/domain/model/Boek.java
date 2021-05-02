@@ -3,9 +3,9 @@ package domain.model;
 import java.time.LocalDate;
 
 public class Boek {
-    String titel;
-    String autheur;
-    int pagina, score;
+    private String titel;
+    private String autheur;
+    private int pagina, score;
 
     public Boek(String titel, String autheur, int pagina, int score){
     setTitel(titel);
