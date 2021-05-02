@@ -6,6 +6,7 @@ import domain.model.Boek;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -50,16 +51,36 @@ public class BoekForm extends HttpServlet {
                     destination = delete(request, response);
                     break;
                 case "searchPage":
-                    destination = "Zoek.jsp";
+                    destination = zoek(request, response);
                     break;
                 case "search":
-                    destination = search(request);
+                    destination = search(request, response);
                     break;
                 default:
                     destination = goHome(request);
             }
             request.getRequestDispatcher(destination).forward(request, response);
         }
+
+    private String zoek(HttpServletRequest request, HttpServletResponse response) {
+
+        Cookie c = getCookie(request, "titels");
+        if (c != null){
+            request.setAttribute("titelCookie", c.getValue());
+            return "Zoek.jsp";}
+        else return "Zoek.jsp";
+    }
+
+    private Cookie getCookie(HttpServletRequest request, String key) {
+        Cookie[] cookies = request.getCookies(); // haalt alle cookies op
+        if (cookies == null)
+            return null;
+        for (Cookie cookie : cookies) {
+            if (cookie.getName().equals(key)) //
+                return cookie;
+        }
+        return null;
+    }
 
 
     private String goHome(HttpServletRequest request) {
@@ -194,7 +215,7 @@ public class BoekForm extends HttpServlet {
 
 
 
-    private String search(HttpServletRequest request){
+    private String search(HttpServletRequest request, HttpServletResponse response){
         String destination;
         String titel = request.getParameter("titel");
 
@@ -216,6 +237,9 @@ public class BoekForm extends HttpServlet {
                 request.setAttribute("resultaat4",resultaat4);
             }
         }
+        Cookie cookie = new Cookie("titels", titel); // maakt nieuwe
+        response.addCookie(cookie);
+
         request.getRequestDispatcher(destination);
         return destination;
     }

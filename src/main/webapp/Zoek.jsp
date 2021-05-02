@@ -5,6 +5,7 @@
   Time: 13:35
   To change this template use File | Settings | File Templates.
 --%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="nl">
 
@@ -37,6 +38,11 @@
     </nav>
 </header>
 <body>
+    <c:if test="${titelCookie != null}">
+        <p>
+            Je zocht laatst naar: ${titelCookie}
+        </p>
+    </c:if>
 <form action="BoekForm?command=search" method="GET">
     <label for="titel">Titel:</label><br>
     <input type="text" id="titel" name="titel"><br>
