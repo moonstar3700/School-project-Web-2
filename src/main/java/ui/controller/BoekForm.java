@@ -219,7 +219,7 @@ public class BoekForm extends HttpServlet {
         String destination;
         String titel = request.getParameter("titel");
 
-        if(titel == null){
+        if(titel == null || titel.trim().isEmpty()){
             destination = "nietgevonden.jsp";
         }else{
             Boek boeken = databank.vind(titel);
@@ -237,9 +237,10 @@ public class BoekForm extends HttpServlet {
                 request.setAttribute("resultaat4",resultaat4);
             }
         }
-        Cookie cookie = new Cookie("titels", titel); // maakt nieuwe
-        response.addCookie(cookie);
-
+        if(!titel.trim().isEmpty()) {
+            Cookie cookie = new Cookie("titels", titel); // maakt nieuwe
+            response.addCookie(cookie);
+        }
         request.getRequestDispatcher(destination);
         return destination;
     }

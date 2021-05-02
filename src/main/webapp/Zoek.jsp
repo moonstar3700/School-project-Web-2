@@ -39,9 +39,11 @@
 </header>
 <body>
     <c:if test="${titelCookie != null}">
-        <p>
-            Je zocht laatst naar: ${titelCookie}
-        </p>
+        <div>
+            <p class="cook">
+                Je zocht laatst naar: ${titelCookie}
+            </p>
+        </div>
     </c:if>
 <form action="BoekForm?command=search" method="GET">
     <label for="titel">Titel:</label><br>

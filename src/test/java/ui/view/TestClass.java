@@ -56,8 +56,12 @@ public class TestClass {
             driver.findElement(By.linkText("Boek Toevoegen")).click();
             driver.findElement(By.className("submit")).click();
             assertEquals("Reading club - Boek toevoegen", driver.getTitle());
-            WebElement check = driver.findElement(By.xpath("//*[text()='Vul alle velden in.']"));
-            assertEquals("Vul alle velden in.", check.getText());
+            WebElement check = driver.findElement(By.xpath("//*[text()='Titel mag niet leeg zijn']"));
+            assertEquals("Titel mag niet leeg zijn", check.getText());
+            WebElement check1 = driver.findElement(By.xpath("//*[text()='Autheur mag niet leeg zijn']"));
+            assertEquals("Autheur mag niet leeg zijn", check1.getText());
+            WebElement check2 = driver.findElement(By.xpath("//*[text()='Aantal pagina's moet boven 0 zijn']"));
+            assertEquals("Aantal pagina's moet boven 0 zijn", check2.getText());
         }
 
         @Test
@@ -75,31 +79,30 @@ public class TestClass {
             assertEquals("Patryk", check.getText());
         }
 
-
         @Test
         public void voeg_leeg_titel_toe(){
             driver.get("http://localhost:8080/Piekarz_Patryk_war_exploded/");
             driver.findElement(By.linkText("Boek Toevoegen")).click();
-            driver.findElement(By.className("submit")).click();
             driver.findElement(By.id("autheur")).sendKeys(ValidAuthor);
             driver.findElement(By.id("pagina")).sendKeys("100");
+            driver.findElement(By.className("submit")).click();
 
             assertEquals("Reading club - Boek toevoegen", driver.getTitle());
-            WebElement check = driver.findElement(By.xpath("//*[text()='Vul alle velden in.']"));
-            assertEquals("Vul alle velden in.", check.getText());
+            WebElement check = driver.findElement(By.xpath("//*[text()='Titel mag niet leeg zijn']"));
+            assertEquals("Titel mag niet leeg zijn", check.getText());
         }
 
     @Test
     public void voeg_leeg_autheur_toe(){
         driver.get("http://localhost:8080/Piekarz_Patryk_war_exploded/");
         driver.findElement(By.linkText("Boek Toevoegen")).click();
-        driver.findElement(By.className("submit")).click();
         driver.findElement(By.id("titel")).sendKeys(ValidTitle);
         driver.findElement(By.id("pagina")).sendKeys("100");
+        driver.findElement(By.className("submit")).click();
 
         assertEquals("Reading club - Boek toevoegen", driver.getTitle());
-        WebElement check = driver.findElement(By.xpath("//*[text()='Vul alle velden in.']"));
-        assertEquals("Vul alle velden in.", check.getText());
+        WebElement check = driver.findElement(By.xpath("//div[text()='Autheur mag niet leeg zijn']/li"));
+        assertEquals("Autheur mag niet leeg zijn", check.getText());
     }
 
     @Test
@@ -112,7 +115,7 @@ public class TestClass {
 
         assertEquals("Reading club - Boek toevoegen", driver.getTitle());
         WebElement check = driver.findElement(By.xpath("//*[text()='Vul alle velden in.']"));
-        assertEquals("Vul alle velden in.", check.getText());
+        assertEquals("Aantal pagina's moet boven 0 zijn", check.getText());
     }
 
         @Test
@@ -123,7 +126,7 @@ public class TestClass {
             driver.findElement(By.id("submit")).click();
             assertEquals("Reading club - Overzicht", driver.getTitle());
             WebElement check = driver.findElement(By.xpath("//table/tbody/tr[1]/td[1]"));
-            //assertEquals("Influence", check);
+            assertEquals("Influence", check);
         }
 
 
