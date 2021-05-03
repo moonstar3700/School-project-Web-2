@@ -134,9 +134,11 @@ public class BoekForm extends HttpServlet {
 
     private String goHome(HttpServletRequest request) {
         String destination;
-        request.setAttribute("diksteBoek", databank.diksteBoek());
-        request.setAttribute("dunsteBoek", databank.dunsteBoek());
-        request.setAttribute("gemiddeldePagina", databank.GemiddeldePagina());
+        if (databank.getSize() != 0) {
+            request.setAttribute("diksteBoek", databank.diksteBoek());
+            request.setAttribute("dunsteBoek", databank.dunsteBoek());
+            request.setAttribute("gemiddeldePagina", databank.GemiddeldePagina());
+        }
         destination = "index.jsp";
         return destination;
     }

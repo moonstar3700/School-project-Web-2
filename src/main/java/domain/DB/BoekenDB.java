@@ -16,6 +16,10 @@ public class BoekenDB {
         boeken.add(b3);
     }
 
+    public int getSize(){
+        return boeken.size();
+    }
+
     public ArrayList<Boek> getBoeken() {return boeken; }
 
     public void addBoek(Boek boek){
