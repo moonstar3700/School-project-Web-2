@@ -32,7 +32,7 @@
                 <a href="BoekForm?command=Overzicht">Overzicht</a>
             </li>
             <li class="hier">
-                <a href="BoekForm?command=searchPage">Search</a>
+                <a href="BoekForm?command=searchPage">Zoek</a>
             </li>
         </ul>
     </nav>

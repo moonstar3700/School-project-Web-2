@@ -28,10 +28,10 @@ public class TestClass {
             //System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
             driver = new ChromeDriver();
         }
-        @After
+        /*@After
              public void clean() {
                  driver.quit();
-        }
+        }*/
         @Test
         public void search_valid_item(){
             driver.get("http://localhost:8080/Piekarz_Patryk_war_exploded/");
@@ -56,12 +56,12 @@ public class TestClass {
             driver.findElement(By.linkText("Boek Toevoegen")).click();
             driver.findElement(By.className("submit")).click();
             assertEquals("Reading club - Boek toevoegen", driver.getTitle());
-            WebElement check = driver.findElement(By.xpath("//*[text()='Titel mag niet leeg zijn']"));
+            WebElement check = driver.findElement(By.className("alerts"));
             assertEquals("Titel mag niet leeg zijn", check.getText());
-            WebElement check1 = driver.findElement(By.xpath("//*[text()='Autheur mag niet leeg zijn']"));
+            WebElement check1 = driver.findElement(By.className("alerts"));
             assertEquals("Autheur mag niet leeg zijn", check1.getText());
-            WebElement check2 = driver.findElement(By.xpath("//*[text()='Aantal pagina's moet boven 0 zijn']"));
-            assertEquals("Aantal pagina's moet boven 0 zijn", check2.getText());
+            WebElement check2 = driver.findElement(By.className("alerts"));
+            assertEquals("Voer een getal voor pagina's in", check2.getText());
         }
 
         @Test
@@ -88,7 +88,7 @@ public class TestClass {
             driver.findElement(By.className("submit")).click();
 
             assertEquals("Reading club - Boek toevoegen", driver.getTitle());
-            WebElement check = driver.findElement(By.xpath("//*[text()='Titel mag niet leeg zijn']"));
+            WebElement check = driver.findElement(By.className("alerts"));
             assertEquals("Titel mag niet leeg zijn", check.getText());
         }
 
@@ -101,7 +101,7 @@ public class TestClass {
         driver.findElement(By.className("submit")).click();
 
         assertEquals("Reading club - Boek toevoegen", driver.getTitle());
-        WebElement check = driver.findElement(By.xpath("//div[text()='Autheur mag niet leeg zijn']/li"));
+        WebElement check = driver.findElement(By.className("alerts"));
         assertEquals("Autheur mag niet leeg zijn", check.getText());
     }
 
@@ -109,13 +109,13 @@ public class TestClass {
     public void voeg_leeg_pagina_toe(){
         driver.get("http://localhost:8080/Piekarz_Patryk_war_exploded/");
         driver.findElement(By.linkText("Boek Toevoegen")).click();
-        driver.findElement(By.className("submit")).click();
         driver.findElement(By.id("titel")).sendKeys(ValidTitle);
         driver.findElement(By.id("autheur")).sendKeys(ValidAuthor);
+        driver.findElement(By.className("submit")).click();
 
         assertEquals("Reading club - Boek toevoegen", driver.getTitle());
-        WebElement check = driver.findElement(By.xpath("//*[text()='Vul alle velden in.']"));
-        assertEquals("Aantal pagina's moet boven 0 zijn", check.getText());
+        WebElement check = driver.findElement(By.className("alerts"));
+        assertEquals("Voer een getal voor pagina's in", check.getText());
     }
 
         @Test
@@ -128,8 +128,6 @@ public class TestClass {
             WebElement check = driver.findElement(By.xpath("//table/tbody/tr[1]/td[1]"));
             assertEquals("Influence", check);
         }
-
-
 
 
         /*@Test // Voer deze test uit als je je project opgeladen hebt

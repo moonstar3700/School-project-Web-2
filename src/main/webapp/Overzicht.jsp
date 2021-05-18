@@ -34,7 +34,7 @@
                 <a href="BoekForm?command=Overzicht">Overzicht</a>
             </li>
             <li>
-                <a href="BoekForm?command=searchPage">Search</a>
+                <a href="BoekForm?command=searchPage">Zoek</a>
             </li>
         </ul>
     </nav>
@@ -62,7 +62,7 @@
                     <td>${boek.autheur}</td>
                     <td>${boek.pagina}</td>
                     <td>${boek.score}</td>
-                    <td><a href="BoekForm?command=updatePage&titel=${boek.titel}&autheur=${boek.autheur}&pagina=${boek.pagina}">Update</a></td>
+                    <td><a href="BoekForm?command=updatePage&titel=${boek.titel}&autheur=${boek.autheur}&pagina=${boek.pagina}&score=${boek.score}">Update</a></td>
                     <td><a href="BoekForm?command=deleteConfirmation&titel=${boek.titel}&autheur=${boek.autheur}">Verwijder</a></td>
 
                 </tr>

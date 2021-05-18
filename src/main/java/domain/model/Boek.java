@@ -41,6 +41,9 @@ public class Boek {
 
 
     public void setScore(int score) {
+        if (score <=0){
+            throw new IllegalArgumentException("score mag niet 0 of negatief zijn");
+        }
         this.score = score;
     }
 

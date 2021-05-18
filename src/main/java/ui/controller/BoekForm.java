@@ -3,20 +3,23 @@ package ui.controller;
 
 import domain.DB.BoekenDB;
 import domain.model.Boek;
-
+import net.bytebuddy.asm.Advice;
+import domain.model.Log;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.*;
 import java.io.IOException;
+import java.sql.Time;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Date;
 
 @WebServlet("/BoekForm")
 public class BoekForm extends HttpServlet {
 
     private BoekenDB databank = new BoekenDB();
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         processRequest(request, response);
     }
@@ -62,11 +65,38 @@ public class BoekForm extends HttpServlet {
                 case "search":
                     destination = search(request, response);
                     break;
+                /*case "logboek":
+                    destination = logboek(request, response);
+                    break;*/
                 default:
                     destination = goHome(request);
             }
             request.getRequestDispatcher(destination).forward(request, response);
         }
+
+    /** Implementatie session
+     *
+     *
+     *
+     */
+
+    private void logboekLijst(HttpServletRequest request, String zoek) {
+        HttpSession session = request.getSession();
+        LocalTime time = LocalTime.now();
+        if (session.getAttribute("logboek") == null){
+            Log log = new Log(time,zoek);
+            ArrayList<Log>logboek = new ArrayList<>();
+            logboek.add(log);
+            session.setAttribute("logboek", logboek);
+        }
+        else{
+            ArrayList<Log> logboek = (ArrayList<Log>)session.getAttribute("logboek");
+            Log log = new Log(time,zoek);
+            logboek.add(log);
+            session.setAttribute("logboek", logboek);
+        }
+
+    }
 
     private String update(HttpServletRequest request, HttpServletResponse response) {
         String titel = request.getParameter("titel");
@@ -75,7 +105,7 @@ public class BoekForm extends HttpServlet {
         ArrayList<String> errors = new ArrayList<>();
         setAutheur(b, request, errors);
         setPagina(b, request, errors);
-        setScore(b, request);
+        setScore(b, request, errors);
 
         if (errors.size() == 0){
             try{
@@ -98,10 +128,12 @@ public class BoekForm extends HttpServlet {
         String titel = request.getParameter("titel");
         String autheur = request.getParameter("autheur");
         String pagina = request.getParameter("pagina");
+        String score = request.getParameter("score");
 
         request.setAttribute("titelpreviuousValue", titel);
         request.setAttribute("autheurpreviuousValue", autheur);
         request.setAttribute("paginapreviuousValue", pagina);
+        request.setAttribute("scorepreviousValue", score);
 
         return "update.jsp";
     }
@@ -122,8 +154,7 @@ public class BoekForm extends HttpServlet {
 
     private Cookie getCookie(HttpServletRequest request, String key) {
         Cookie[] cookies = request.getCookies(); // haalt alle cookies op
-        if (cookies == null)
-            return null;
+
         for (Cookie cookie : cookies) {
             if (cookie.getName().equals(key)) //
                 return cookie;
@@ -156,7 +187,7 @@ public class BoekForm extends HttpServlet {
         setTitel(boek, request, errors);
         setAutheur(boek, request, errors);
         setPagina(boek, request, errors);
-        setScore(boek, request);
+        setScore(boek, request, errors);
 
         for(Boek b: databank.getBoeken()){
             if (b.getTitel().equals(boek.getTitel()) && b.getAutheur().equals(boek.getAutheur())){
@@ -219,10 +250,19 @@ public class BoekForm extends HttpServlet {
             }
     }
 
-    private void setScore(Boek boek, HttpServletRequest request){
-        int score = Integer.parseInt(request.getParameter("score"));
-        boek.setScore(score);
-        request.setAttribute("scorepreviuousValue", score);
+    private void setScore(Boek boek, HttpServletRequest request, ArrayList<String> errors){
+        int score;
+        try {
+            score = Integer.parseInt(request.getParameter("score"));
+            boek.setScore(score);
+            request.setAttribute("scorepreviuousValue", score);
+        }
+        catch (NumberFormatException exc){
+            errors.add("score moet een getal zijn");
+        }
+        catch (IllegalArgumentException exc){
+            errors.add(exc.getMessage());
+        }
     }
 
       private String delete(HttpServletRequest request, HttpServletResponse response){
@@ -244,6 +284,8 @@ public class BoekForm extends HttpServlet {
             if(boeken == null){
                 destination = "nietgevonden.jsp";
             }else{
+
+                logboekLijst(request, boeken.getTitel());
                 destination = "gevonden.jsp";
                 String resultaat1 = "Titel: " + boeken.getTitel();
                 String resultaat2 = "Autheur: " + boeken.getAutheur();

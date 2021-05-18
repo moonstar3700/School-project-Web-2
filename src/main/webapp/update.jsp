@@ -33,7 +33,7 @@
                 <a href="BoekForm?command=Overzicht">Overzicht</a>
             </li>
             <li>
-                <a href="BoekForm?command=searchPage">Search</a>
+                <a href="BoekForm?command=searchPage">Zoek</a>
             </li>
         </ul>
     </nav>
@@ -67,16 +67,16 @@
 
             <label for="id_select">Score:</label><br>
             <select id="id_select" name="score">
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
-                <option value="7">7</option>
-                <option value="8">8</option>
-                <option value="9">9</option>
-                <option value="10">10</option>
+                <option ${param.score eq '1' ? 'selected' : ''}>1</option>
+                <option ${param.score eq '2' ? 'selected' : ''}>2</option>
+                <option ${param.score eq '3' ? 'selected' : ''}>3</option>
+                <option ${param.score eq '4' ? 'selected' : ''}>4</option>
+                <option ${param.score eq '5' ? 'selected' : ''}>5</option>
+                <option ${param.score eq '6' ? 'selected' : ''}>6</option>
+                <option ${param.score eq '7' ? 'selected' : ''}>7</option>
+                <option ${param.score eq '8' ? 'selected' : ''}>8</option>
+                <option ${param.score eq '9' ? 'selected' : ''}>9</option>
+                <option ${param.score eq '10' ? 'selected' : ''}>10</option>
             </select><br>
             <input type="submit" class="submit" value=Updaten>
         </form>

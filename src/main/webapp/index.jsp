@@ -26,16 +26,19 @@
                 <a href="BoekForm?command=Overzicht">Overzicht</a>
             </li>
             <li>
-                <a href="BoekForm?command=searchPage">Search</a>
+                <a href="BoekForm?command=searchPage">Zoek</a>
+            </li>
+            <li>
+                <a href="Logboek.jsp">Logboek</a>
             </li>
         </ul>
     </nav>
 </header>
 <main>
     <section>
-        <h1><span>読書クラブ</span><br>Reading club</h1>
+        <h1><span lang="jp">読書クラブ</span><br>Reading club</h1>
         <p>Op deze site voeg ik alle boeken toe die ik gelezen heb, en die ik aan het lezen ben om bij te houden hoeveel boeken ik doorheen het jaar lees. </p>
-        <h2>Enkele weetjes</h2>
+        <h2 >Enkele weetjes</h2>
         <p>Het dunste boek in de lijst is: ${dunsteBoek.titel}
             <br> Het dikste boek in de lijst is: ${diksteBoek.titel}
             <br> Gemiddelde aantal pagina's is: ${gemiddeldePagina}
