@@ -36,7 +36,7 @@
 </header>
 <main>
     <section>
-        <h1><span lang="jp">読書クラブ</span><br>Reading club</h1>
+        <h1><span lang="ja">読書クラブ</span><br>Reading club</h1>
         <p>Op deze site voeg ik alle boeken toe die ik gelezen heb, en die ik aan het lezen ben om bij te houden hoeveel boeken ik doorheen het jaar lees. </p>
         <h2 >Enkele weetjes</h2>
         <p>Het dunste boek in de lijst is: ${dunsteBoek.titel}

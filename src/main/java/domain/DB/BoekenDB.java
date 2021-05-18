@@ -7,9 +7,9 @@ public class BoekenDB {
     private ArrayList<Boek> boeken = new ArrayList<>();
     public BoekenDB(){
 
-        Boek b1 = new Boek("Witcher", "Andrzej Sapkowski", 286,  9);
-        Boek b2 = new Boek("Influence", "Robert B. Caldini", 320, 8);
-        Boek b3 = new Boek("Moby Dick", "Herman melville", 378, 8);
+        Boek b1 = new Boek("Witcher", "Sapkowski", 286,  9);
+        Boek b2 = new Boek("Influence", "Caldini", 320, 8);
+        Boek b3 = new Boek("Moby_Dick", "Melville", 378, 8);
 
         boeken.add(b1);
         boeken.add(b2);

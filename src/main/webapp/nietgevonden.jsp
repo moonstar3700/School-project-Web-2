@@ -33,6 +33,9 @@
             <li class="hier">
                 <a href="BoekForm?command=searchPage">Zoek</a>
             </li>
+            <li>
+                <a href="Logboek.jsp">Logboek</a>
+            </li>
         </ul>
     </nav>
 </header>

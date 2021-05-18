@@ -33,9 +33,33 @@ public class TestClass {
                  driver.quit();
         }*/
         @Test
+        public void valid_log_display(){
+            driver.get("http://localhost:8080/Piekarz_Patryk_war_exploded/");
+            driver.findElement(By.linkText("Zoek")).click();
+            driver.findElement(By.id("titel")).sendKeys("Witcher");
+            driver.findElement(By.className("submit")).click();
+            driver.findElement(By.linkText("Logboek")).click();
+            WebElement check = driver.findElement(By.xpath("/html/body/main/section/div/table/tbody/tr[1]/th[2]"));
+            assertEquals("Witcher", check.getText());
+        }
+
+    /*@Test
+    public void valid_log_display_2(){
+        driver.get("http://localhost:8080/Piekarz_Patryk_war_exploded/");
+        driver.findElement(By.linkText("Zoek")).click();
+        driver.findElement(By.id("titel")).sendKeys("Witcher");
+        driver.findElement(By.className("submit")).click();
+        driver.findElement(By.linkText("Logboek")).click();
+        WebElement check = driver.findElement(By.xpath("/html/body/main/section/div/table/tbody/tr[1]/th[2]"));
+        assertEquals("Witcher", check.getText());
+    }*/
+
+
+
+        @Test
         public void search_valid_item(){
             driver.get("http://localhost:8080/Piekarz_Patryk_war_exploded/");
-            driver.findElement(By.linkText("Search")).click();
+            driver.findElement(By.linkText("Zoek")).click();
             driver.findElement(By.id("titel")).sendKeys("Witcher");
             driver.findElement(By.className("submit")).click();
             assertEquals("Reading club - Gevonden", driver.getTitle());
@@ -44,7 +68,7 @@ public class TestClass {
         @Test
          public void search_invalid_item(){
             driver.get("http://localhost:8080/Piekarz_Patryk_war_exploded/");
-            driver.findElement(By.linkText("Search")).click();
+            driver.findElement(By.linkText("Zoek")).click();
             driver.findElement(By.id("titel")).sendKeys(" ");
             driver.findElement(By.className("submit")).click();
             assertEquals("Reading club - Niet gevonden", driver.getTitle());
@@ -54,15 +78,18 @@ public class TestClass {
         public void voeg_leeg_item_toe(){
             driver.get("http://localhost:8080/Piekarz_Patryk_war_exploded/");
             driver.findElement(By.linkText("Boek Toevoegen")).click();
+
             driver.findElement(By.className("submit")).click();
             assertEquals("Reading club - Boek toevoegen", driver.getTitle());
-            WebElement check = driver.findElement(By.className("alerts"));
+            WebElement check = driver.findElement(By.xpath("/html/body/main/section/div/ul/li[1]"));
             assertEquals("Titel mag niet leeg zijn", check.getText());
-            WebElement check1 = driver.findElement(By.className("alerts"));
+            WebElement check1 = driver.findElement(By.xpath("/html/body/main/section/div/ul/li[2]"));
             assertEquals("Autheur mag niet leeg zijn", check1.getText());
-            WebElement check2 = driver.findElement(By.className("alerts"));
+            WebElement check2 = driver.findElement(By.xpath("/html/body/main/section/div/ul/li[3]"));
             assertEquals("Voer een getal voor pagina's in", check2.getText());
         }
+
+
 
         @Test
         public void voeg_valide_item_toe(){
