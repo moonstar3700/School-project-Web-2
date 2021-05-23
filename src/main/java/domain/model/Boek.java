@@ -64,6 +64,6 @@ public class Boek {
     }
 
     public boolean heeftTitel(String titel){
-        return titel.equals(this.titel);
+        return titel.equalsIgnoreCase(this.titel);
     }
 }

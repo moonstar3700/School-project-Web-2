@@ -3,17 +3,16 @@ package ui.controller;
 
 import domain.DB.BoekenDB;
 import domain.model.Boek;
-import net.bytebuddy.asm.Advice;
 import domain.model.Log;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 import java.io.IOException;
-import java.sql.Time;
-import java.time.LocalDate;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.Date;
 
 @WebServlet("/BoekForm")
 public class BoekForm extends HttpServlet {
@@ -34,40 +33,38 @@ public class BoekForm extends HttpServlet {
             String destination;
             String command = request.getParameter("command");
 
+
             if (command == null)
-            command = "homePage";
+            command = "";
 
             switch (command){
                 case "Overzicht":
-                    destination = showOverzicht(request, response);
+                    destination = showOverzicht(request);
                     break;
                 case "BoekToevoegen":
                     destination = "BoekToevoegen.jsp";
                     break;
                 case "voegToe":
-                    destination = voegToe(request, response);
+                    destination = voegToe(request);
                     break;
                 case "deleteConfirmation":
                     destination = "deleteConfirmation.jsp";
                     break;
                 case "delete":
-                    destination = delete(request, response);
+                    destination = delete(request);
                     break;
                 case "searchPage":
-                    destination = zoek(request, response);
+                    destination = zoek(request);
                     break;
                 case "updatePage":
-                    destination = updatePage(request, response);
+                    destination = updatePage(request);
                     break;
                 case "update":
-                    destination = update(request, response);
+                    destination = update(request);
                     break;
                 case "search":
                     destination = search(request, response);
                     break;
-                /*case "logboek":
-                    destination = logboek(request, response);
-                    break;*/
                 default:
                     destination = goHome(request);
             }
@@ -75,9 +72,10 @@ public class BoekForm extends HttpServlet {
         }
 
     /** Implementatie session
+     * Bij het opzoeken van een boek dat zich in de database bevindt zal de titel van het boek, samen met het tijdstip waneer
+     * het werd opgezocht in het logboek opgeslagen.
      *
-     *
-     *
+     * Zie methode 'search' onderaan voor het oproepen van de 'logboekLijst' methode.
      */
 
     private void logboekLijst(HttpServletRequest request, String zoek) {
@@ -95,11 +93,12 @@ public class BoekForm extends HttpServlet {
             logboek.add(log);
             session.setAttribute("logboek", logboek);
         }
-
     }
 
-    private String update(HttpServletRequest request, HttpServletResponse response) {
+    private String update(HttpServletRequest request) {
         String titel = request.getParameter("titel");
+        if (titel==null || titel.trim().isEmpty()){
+            return showOverzicht(request);}
         Boek b = databank.vind(titel);
 
         ArrayList<String> errors = new ArrayList<>();
@@ -109,7 +108,7 @@ public class BoekForm extends HttpServlet {
 
         if (errors.size() == 0){
             try{
-                return showOverzicht(request, response);
+                return showOverzicht(request);
             }
             catch (IllegalArgumentException exc){
                 request.setAttribute("error", exc.getMessage());
@@ -124,7 +123,7 @@ public class BoekForm extends HttpServlet {
         }
     }
 
-    private String updatePage(HttpServletRequest request, HttpServletResponse response) {
+    private String updatePage(HttpServletRequest request) {
         String titel = request.getParameter("titel");
         String autheur = request.getParameter("autheur");
         String pagina = request.getParameter("pagina");
@@ -138,30 +137,41 @@ public class BoekForm extends HttpServlet {
         return "update.jsp";
     }
 
-    private String zoek(HttpServletRequest request, HttpServletResponse response) {
+    private String zoek(HttpServletRequest request) throws UnsupportedEncodingException {
 
         Cookie c = getCookie(request, "titels");
         if (c != null){
-            request.setAttribute("titelCookie", c.getValue());
-            return "Zoek.jsp";}
-        else return "Zoek.jsp";
+            request.setAttribute("titelCookie", URLDecoder.decode(c.getValue(), "UTF-8"));}
+
+        return "Zoek.jsp";
     }
 
     /** Implementatie cookie
      *  Het laatst opgezochte zoekterm in de zoek functie van de site wordt in de cookies opgeslagen.
+     *  Er wordt geen rekening gehouden of de zoekterm zich in de database bevindt of niet.
      *  Indien men en leeg veld of enkel spaties indient zal niets in de cookies worden opgeslagen.
+     *
+     *  Voor verdere implementatie cookie zie methode 'search' onderaan.
      */
 
     private Cookie getCookie(HttpServletRequest request, String key) {
         Cookie[] cookies = request.getCookies(); // haalt alle cookies op
 
-        for (Cookie cookie : cookies) {
-            if (cookie.getName().equals(key)) //
-                return cookie;
+        if(cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals(key))
+                    return cookie;
+            }
         }
         return null;
     }
 
+    /**Implementatie berekeningen
+     * Indien de index pagina wordt opgevraagd worden de volgende items berekend.
+     *      De titel van het boek met het minste aantal pagina's
+     *      De titel van het boek met het grootste aantal pagina's
+     *      Het gemiddelde aantal pagina's van alle boeken samengenomen
+     */
 
     private String goHome(HttpServletRequest request) {
         String destination;
@@ -174,14 +184,14 @@ public class BoekForm extends HttpServlet {
         return destination;
     }
 
-    private String showOverzicht(HttpServletRequest request, HttpServletResponse response) {
+    private String showOverzicht(HttpServletRequest request) {
         String destination;
         request.setAttribute("alleboeken", databank.getBoeken());
 
         destination = "Overzicht.jsp";
         return destination;
     }
-    private String voegToe(HttpServletRequest request, HttpServletResponse response) {
+    private String voegToe(HttpServletRequest request) {
         ArrayList<String> errors = new ArrayList<>();
         Boek boek = new Boek();
         setTitel(boek, request, errors);
@@ -190,14 +200,14 @@ public class BoekForm extends HttpServlet {
         setScore(boek, request, errors);
 
         for(Boek b: databank.getBoeken()){
-            if (b.getTitel().equals(boek.getTitel()) && b.getAutheur().equals(boek.getAutheur())){
+            if (b.getTitel().equals(boek.getTitel())){
                 errors.add("Dit boek bestaat al in de database");
             }
         }
         if (errors.size() == 0){
             try{
                 databank.addBoek(boek);
-                return showOverzicht(request, response);
+                return showOverzicht(request);
             }
             catch (IllegalArgumentException exc){
                 request.setAttribute("error", exc.getMessage());
@@ -215,7 +225,6 @@ public class BoekForm extends HttpServlet {
         String titel = request.getParameter("titel");
         try {
             boek.setTitel(titel);
-            //request.setAttribute("titelClass", "has-succes");
             request.setAttribute("titelpreviuousValue", titel); // returned de ingevulde waarde bij fouten
         }
         catch (IllegalArgumentException e ){
@@ -265,43 +274,42 @@ public class BoekForm extends HttpServlet {
         }
     }
 
-      private String delete(HttpServletRequest request, HttpServletResponse response){
+      private String delete(HttpServletRequest request){
         String titel = request.getParameter("titel");
         databank.verwijder(titel);
-        return showOverzicht(request, response);
+        return showOverzicht(request);
     }
 
 
 
-    private String search(HttpServletRequest request, HttpServletResponse response){
+    private String search(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
         String destination;
         String titel = request.getParameter("titel");
 
         if(titel == null || titel.trim().isEmpty()){
-            destination = "nietgevonden.jsp";
+            return "nietgevonden.jsp";
         }else{
             Boek boeken = databank.vind(titel);
             if(boeken == null){
                 destination = "nietgevonden.jsp";
             }else{
 
+                // Oproepen van 'logboekLijst' methode waneer het gezochte boek zich in de databank bevindt
                 logboekLijst(request, boeken.getTitel());
                 destination = "gevonden.jsp";
                 String resultaat1 = "Titel: " + boeken.getTitel();
-                String resultaat2 = "Autheur: " + boeken.getAutheur();
-                        String resultaat3 = "Aantal pagina's: " + boeken.getPagina();
-                        String resultaat4 = "score: " + boeken.getScore();
-                        request.setAttribute("resultaat1",resultaat1);
+                String resultaat2 = "Auteur: " + boeken.getAutheur();
+                String resultaat3 = "Aantal pagina's: " + boeken.getPagina();
+                String resultaat4 = "score: " + boeken.getScore();
+                request.setAttribute("resultaat1",resultaat1);
                 request.setAttribute("resultaat2",resultaat2);
                 request.setAttribute("resultaat3",resultaat3);
                 request.setAttribute("resultaat4",resultaat4);
             }
         }
-        if(!titel.trim().isEmpty()) {
-            Cookie cookie = new Cookie("titels", titel); // maakt nieuwe cookie aan
-            response.addCookie(cookie);
-        }
-        request.getRequestDispatcher(destination);
+        Cookie cookie = new Cookie("titels", URLEncoder.encode(titel, "UTF-8")); // maakt nieuwe cookie aan
+        cookie.setMaxAge(3600);
+        response.addCookie(cookie);
         return destination;
     }
 }

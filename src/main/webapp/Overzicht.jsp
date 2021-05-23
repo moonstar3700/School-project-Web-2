@@ -50,7 +50,7 @@
                 <thead>
                 <tr>
                     <th>Titel boek</th>
-                    <th>Autheur</th>
+                    <th>Auteur</th>
                     <th>Aantal pagina's</th>
                     <th>Score</th>
                     <th>Update</th>

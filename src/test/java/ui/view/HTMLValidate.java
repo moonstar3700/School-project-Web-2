@@ -21,10 +21,10 @@ public class HTMLValidate {
         driver = new ChromeDriver();
     }
 
-    /*@After
+    @After
     public void clean() {
         driver.quit();
-    }*/
+    }
 
     @Test
     public void isValidHtmlhome() {
@@ -56,6 +56,10 @@ public class HTMLValidate {
         WebElement pass = driver.findElement(By.cssSelector("p.success"));
         assertEquals("Document checking completed. No errors or warnings to show.", pass.getText());
     }
+
+    /**
+     * Deze test zal enkel werken indien er geen waardes in dedatabase zijn met een spatie in de string.
+     */
     @Test
     public void isValidHtmlOverzicht() {
         driver.get("https://validator.w3.org/#validate_by_uri+with_options");
@@ -101,6 +105,7 @@ public class HTMLValidate {
         WebElement pass = driver.findElement(By.cssSelector("p.success"));
         assertEquals("Document checking completed. No errors or warnings to show.", pass.getText());
     }
+
     @Test
     public void isValidHtmlZoek() {
         driver.get("https://validator.w3.org/#validate_by_uri+with_options");

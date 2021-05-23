@@ -63,7 +63,7 @@
             <label for="titel">Titel boek:</label><br>
             <input type="text" id="titel" name="titel" value="${titelpreviuousValue}"  required><br>
 
-            <label for="autheur">Autheur:</label><br>
+            <label for="autheur">Auteur:</label><br>
             <input type="text" id="autheur" name="autheur" value="${autheurpreviuousValue}" required><br>
 
             <label for="pagina">Aantal pagina's:</label><br>
