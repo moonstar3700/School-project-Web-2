@@ -62,6 +62,9 @@ public class BoekForm extends HttpServlet {
                 case "update":
                     destination = update(request);
                     break;
+                case "logboek":
+                    destination = "Logboek.jsp";
+                    break;
                 case "search":
                     destination = search(request, response);
                     break;

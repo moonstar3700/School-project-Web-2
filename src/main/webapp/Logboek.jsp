@@ -20,34 +20,16 @@
 </head>
 
 <body>
-<header>
-    <nav>
-        <ul>
-            <li >
-                <a href="BoekForm">Home</a>
-            </li>
-            <li>
-                <a href="BoekForm?command=BoekToevoegen">Boek Toevoegen</a>
-            </li>
-            <li>
-                <a href="BoekForm?command=Overzicht">Overzicht</a>
-            </li>
-            <li>
-                <a href="BoekForm?command=searchPage">Zoek</a>
-            </li>
-            <li class="hier">
-                <a href="Logboek.jsp">Logboek</a>
-            </li>
-        </ul>
-    </nav>
-</header>
+<jsp:include page="Header.jsp">
+    <jsp:param name="hier" value="logboek"/>
+</jsp:include>
 <main>
     <section>
         <h1 id="logH">Logboek</h1>
         <div>
             <table>
-                <thead>
-                    <tr>
+                <thead >
+                    <tr class = "logtable">
                         <th>Tijdstip</th>
                         <th>Titel</th>
                     </tr>

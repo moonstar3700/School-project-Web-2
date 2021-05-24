@@ -20,27 +20,9 @@
 </head>
 
 <body>
-<header>
-    <nav>
-        <ul>
-            <li >
-                <a href="BoekForm">Home</a>
-            </li>
-            <li>
-                <a href="BoekForm?command=BoekToevoegen">Boek Toevoegen</a>
-            </li>
-            <li>
-                <a href="BoekForm?command=Overzicht">Overzicht</a>
-            </li>
-            <li class="hier">
-                <a href="BoekForm?command=searchPage">Zoek</a>
-            </li>
-            <li>
-                <a href="Logboek.jsp">Logboek</a>
-            </li>
-        </ul>
-    </nav>
-</header>
+<jsp:include page="Header.jsp">
+    <jsp:param name="hier" value="SearchPage"/>
+</jsp:include>
     <c:if test="${titelCookie != null}">
         <div>
             <p class="cook">
@@ -48,12 +30,15 @@
             </p>
         </div>
     </c:if>
-<form action="BoekForm?command=search" method="GET">
-    <label for="titel">Titel:</label><br>
-    <input type="text" id="titel" name="titel"><br>
-    <input type="submit" class="submit" value="Zoek">
-    <input type="hidden"  name="command" value="search">
-</form>
+<section>
+    <form action="BoekForm?command=search" method="GET">
+        <label for="titel">Titel:</label><br>
+        <input type="text" id="titel" name="titel"><br>
+        <input type="submit" class="submit" value="Zoek">
+        <input type="hidden"  name="command" value="search">
+    </form>
+</section>
+
 <footer>
     &copy; Patryk Piekarz, webontwikkeling 2, 2021
 </footer>

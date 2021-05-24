@@ -21,34 +21,16 @@
 </head>
 
 <body>
-<header>
-    <nav>
-        <ul>
-            <li>
-                <a href="BoekForm">Home</a>
-            </li>
-            <li>
-                <a href="BoekForm?command=BoekToevoegen">Boek Toevoegen</a>
-            </li>
-            <li class="hier">
-                <a href="BoekForm?command=Overzicht">Overzicht</a>
-            </li>
-            <li>
-                <a href="BoekForm?command=searchPage">Zoek</a>
-            </li>
-            <li>
-                <a href="Logboek.jsp">Logboek</a>
-            </li>
-        </ul>
-    </nav>
-</header>
+<jsp:include page="Header.jsp">
+    <jsp:param name="hier" value="Overzicht"/>
+</jsp:include>
 <main>
     <section>
         <h1>Overzicht van alle boeken</h1>
         <div>
             <table>
                 <thead>
-                <tr>
+                <tr class = "logtable">
                     <th>Titel boek</th>
                     <th>Auteur</th>
                     <th>Aantal pagina's</th>

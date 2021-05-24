@@ -20,27 +20,8 @@
 </head>
 
 <body>
-<header>
-    <nav>
-        <ul>
-            <li>
-                <a href="BoekForm">Home</a>
-            </li>
-            <li class="hier">
-                <a href="BoekForm?command=BoekToevoegen">Boek Toevoegen</a>
-            </li>
-            <li>
-                <a href="BoekForm?command=Overzicht">Overzicht</a>
-            </li>
-            <li>
-                <a href="BoekForm?command=searchPage">Zoek</a>
-            </li>
-            <li>
-                <a href="Logboek.jsp">Logboek</a>
-            </li>
-        </ul>
-    </nav>
-</header>
+<jsp:include page="Header.jsp"/>
+
 <main>
 
     <section>
